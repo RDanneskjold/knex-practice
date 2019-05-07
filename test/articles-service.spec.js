@@ -67,6 +67,34 @@ describe(`Articles service object`, function () {
                 })
         })
     })
+
+    context(`Given 'blogful_articles' has no data`, () => {
+        it('getAllArticles() resolves to an empty array', () => {
+            return ArticlesService.getAllArticles(db)
+                .then(actual => {
+                    expect(actual).to.eql([])
+                })
+        })
+
+        it(`insertArticle() inserts a new article and resolves the new article with an 'id`, () => {
+            const newArticle = {
+                title: 'Test new title',
+                content: 'Test new content',
+                date_published: new Date('2020-01-01T00:00:00.000Z'),
+            }
+            return ArticlesService.insertArticle(db, newArticle)
+                .then(actual => {
+                    expect(actual).to.eql({
+                        id: 1,
+                        title: newArticle.title,
+                        content: newArticle.content,
+                        date_published: newArticle.date_published,
+                    })
+                })
+        })
+    })
+
+
 })
 
 
