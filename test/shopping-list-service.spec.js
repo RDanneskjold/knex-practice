@@ -15,7 +15,7 @@ describe(`Items service object`, function () {
         {
             id: 1,
             name: 'First item',
-            price: 13.10,
+            price: 1310,
             category: 'Main',
             checked: false,
             date_added: new Date('2102-08-22T16:28:32.615Z')
@@ -23,7 +23,7 @@ describe(`Items service object`, function () {
         {
             id: 2,
             name: 'Second item',
-            price: 100.23,
+            price: 10023,
             category: 'Lunch',
             checked: true,
             date_added: new Date('2100-05-22T16:28:32.615Z'),
@@ -31,7 +31,7 @@ describe(`Items service object`, function () {
         {
             id: 3,
             name: 'Third item',
-            price: 1.43,
+            price: 143,
             category: 'Snack',
             checked: false,
             date_added: new Date('1919-12-22T16:28:32.615Z'),
@@ -95,7 +95,7 @@ describe(`Items service object`, function () {
             const idOfItemToUpdate = 3
             const newItemData = {
                 name: 'updated name',
-                price: 500.19,
+                price: 50019,
                 category: 'Breakfast',
                 checked: false,
                 date_added: new Date(),
@@ -123,7 +123,7 @@ describe(`Items service object`, function () {
         it(`insertItem() inserts a new Item and resolves the new Item with an 'id'`, () => {
             const newItem = {
                 name: 'Test new name',
-                price: 10.19,
+                price: 1019,
                 category: 'Lunch',
                 checked: true,
                 date_added: new Date('2020-01-01T00:00:00.000Z'),
