@@ -1,5 +1,5 @@
 require('dotenv').config()
-const ArticlesService = require('../src/articles-service')
+const ShoppingListService = require('../src/shopping-list-service')
 const knex = require('knex')
 
 
@@ -30,7 +30,7 @@ describe(`Articles service object`, function () {
             title: 'Third test post!',
             content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, voluptate? Necessitatibus, reiciendis? Cupiditate totam laborum esse animi ratione ipsa dignissimos laboriosam eos similique cumque. Est nostrum esse porro id quaerat.'
         },
-   ]
+    ]
 
     before(() => {
         db = knex({
@@ -41,7 +41,7 @@ describe(`Articles service object`, function () {
 
     afterEach(() => db('blogful_articles').truncate())
     after(() => db.destroy())
-    
+
     before(() => db('blogful_articles').truncate())
 
     context(`Given 'blogful_articles' has data`, () => {
@@ -52,16 +52,16 @@ describe(`Articles service object`, function () {
         })
 
         it(`getAllArticles() resolves all articles from 'blogful_articles' table`, () => {
-            return ArticlesService.getAllArticles(db)
+            return ShoppingListService.getAllArticles(db)
                 .then(actual => {
                     expect(actual).to.eql(testArticles)
                 })
-            })
+        })
 
         it(`getById() resolves an article by id from 'blogful_articles' table`, () => {
             const thirdId = 3
             const thirdTestArticle = testArticles[thirdId - 1]
-            return ArticlesService.getById(db, thirdId)
+            return ShoppingListService.getById(db, thirdId)
                 .then(actual => {
                     expect(actual).to.eql({
                         id: thirdId,
@@ -74,13 +74,13 @@ describe(`Articles service object`, function () {
 
         it(`deleteArticle() removes an article by id from 'blogful_articles' table`, () => {
             const articleId = 3
-                return ArticlesService.deleteArticle(db, articleId)
-                    .then(() => ArticlesService.getAllArticles(db))
-                    .then(allArticles => {
-                        // copy the test articles array without the "deleted" article
-                        const expected = testArticles.filter(article => article.id !== articleId)
-                        expect(allArticles).to.eql(expected)
-                    })
+            return ShoppingListService.deleteArticle(db, articleId)
+                .then(() => ShoppingListService.getAllArticles(db))
+                .then(allArticles => {
+                    // copy the test articles array without the "deleted" article
+                    const expected = testArticles.filter(article => article.id !== articleId)
+                    expect(allArticles).to.eql(expected)
+                })
         })
 
         it(`updateArticle() updates an article from the 'blogful_articles' table`, () => {
@@ -90,12 +90,12 @@ describe(`Articles service object`, function () {
                 content: 'updated content',
                 date_published: new Date(),
             }
-            return ArticlesService.updateArticle(db, idOfArticleToUpdate, newArticleData)
-                .then(() => ArticlesService.getById(db, idOfArticleToUpdate))
+            return ShoppingListService.updateArticle(db, idOfArticleToUpdate, newArticleData)
+                .then(() => ShoppingListService.getById(db, idOfArticleToUpdate))
                 .then(article => {
                     expect(article).to.eql({
-                    id: idOfArticleToUpdate,
-                    ...newArticleData,
+                        id: idOfArticleToUpdate,
+                        ...newArticleData,
                     })
                 })
         })
@@ -103,12 +103,12 @@ describe(`Articles service object`, function () {
 
     context(`Given 'blogful_articles' has no data`, () => {
         it(`getAllArticles() resolves an empty array`, () => {
-            return ArticlesService.getAllArticles(db)
+            return ShoppingListService.getAllArticles(db)
                 .then(actual => {
                     expect(actual).to.eql([])
                 })
         })
-        
+
         it(`insertArticle() inserts a new article and resolves the new article with an 'id'`, () => {
             const newArticle = {
                 title: 'Test new title',
@@ -116,7 +116,7 @@ describe(`Articles service object`, function () {
                 date_published: new Date('2020-01-01T00:00:00.000Z'),
             }
 
-            return ArticlesService.insertArticle(db, newArticle)
+            return ShoppingListService.insertArticle(db, newArticle)
                 .then(actual => {
                     expect(actual).to.eql({
                         id: 1,
