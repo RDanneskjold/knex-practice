@@ -44,14 +44,22 @@ describe(`Articles service object`, function () {
     
     before(() => db('blogful_articles').truncate())
     
-    before(() => {
-        return db
-            .into('blogful_articles')
-            .insert(testArticles)
-    })
+    // before(() => {
+    //     return db
+    //         .into('blogful_articles')
+    //         .insert(testArticles)
+    // })
 
-    describe(`getAllArticles()`, () => {
-        it(`resolves all articles from 'blogful_articles' table`, () => {
+
+    // describe(`getAllArticles()`, () => {
+    context(`Given 'blogful_articles' has data`, () => {
+        before (() => {
+            return db
+                .into('blogful_articles')
+                .insert(testArticles)
+    })   
+    // it(`resolves all articles from 'blogful_articles' table`, () => {
+        it (`getAllArticles() resolves all articles form 'blogful_articles' table`, () => {
             // test that ArticlesService.getAllArticles gets data from table
             return ArticlesService.getAllArticles(db)
                 .then(actual => {
@@ -60,7 +68,6 @@ describe(`Articles service object`, function () {
         })
     })
 })
-
 
 
     // - before(() => {
